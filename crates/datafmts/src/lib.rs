@@ -2,7 +2,12 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+#[cfg(feature = "csv")]
+extern crate alloc;
+
 pub mod core;
+#[cfg(feature = "csv")]
+pub mod csv;
 
 pub use core::error::Error;
 pub use core::schema::{

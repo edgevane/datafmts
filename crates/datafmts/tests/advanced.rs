@@ -155,6 +155,10 @@ impl<'a> datafmts::Decoder for SliceDec<'a> {
     fn decode_str_into(&mut self, _into: &mut datafmts::StrScratch) -> Result<(), Self::Error> {
         unimplemented!()
     }
+    #[cfg(feature = "csv")]
+    fn decode_string(&mut self) -> Result<String, Self::Error> {
+        unimplemented!()
+    }
     fn decode_unit(&mut self) -> Result<(), Self::Error> {
         Ok(())
     }

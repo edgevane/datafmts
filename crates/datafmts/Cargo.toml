@@ -1,6 +1,6 @@
 [package]
 name = "datafmts"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "modular no_std library for serializing/deserializing multiple file format"
 license = "MIT"
@@ -8,6 +8,7 @@ license = "MIT"
 [features]
 default = ["derive"]
 derive = ["dep:datafmts_derive"]
+csv = []
 
 [dependencies]
-datafmts_derive = { version = "0.1.0", path = "../datafmts_derive", optional = true }
+datafmts_derive = { version = "0.1.1", path = "../datafmts_derive", optional = true }

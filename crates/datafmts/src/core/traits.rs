@@ -78,6 +78,9 @@ pub trait Decoder {
     fn decode_char(&mut self) -> Result<char, Self::Error>;
     /// Decode str bytes into scratch; Err on overflow.
     fn decode_str_into(&mut self, _into: &mut StrScratch) -> Result<(), Self::Error>;
+    /// Decode owned string of arbitrary length.
+    #[cfg(feature = "csv")]
+    fn decode_string(&mut self) -> Result<alloc::string::String, Self::Error>;
     /// Decode unit.
     fn decode_unit(&mut self) -> Result<(), Self::Error>;
     /// Decode Option discriminant; true = Some.

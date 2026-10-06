@@ -42,6 +42,7 @@ jobs:
         run: cargo test --workspace --all-features
 
       - name: Publish datafmts_derive
+        continue-on-error: true
         run: cargo publish -p datafmts_derive --token "$CARGO_TOKEN"
         env:
           CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
