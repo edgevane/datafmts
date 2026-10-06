@@ -1,8 +1,6 @@
 use alloc::{format, string::String, vec::Vec};
 
-use crate::{
-    Decode, Decoder, Encode, Encoder, Error, Field, Kind, Primitive, Schema, StrScratch,
-};
+use crate::{Decode, Decoder, Encode, Encoder, Error, Field, Kind, Primitive, Schema, StrScratch};
 
 // String impls live with csv: both need alloc
 impl Encode for String {
@@ -237,7 +235,9 @@ fn push_escaped(out: &mut Vec<u8>, cell: &str, first_in_row: bool) {
     if !first_in_row {
         out.push(b',');
     }
-    let needs = cell.bytes().any(|b| b == b'"' || b == b',' || b == b'\n' || b == b'\r');
+    let needs = cell
+        .bytes()
+        .any(|b| b == b'"' || b == b',' || b == b'\n' || b == b'\r');
     if !needs {
         out.extend_from_slice(cell.as_bytes());
         return;
@@ -265,15 +265,16 @@ pub fn read<T: crate::DataStruct>(input: &[u8]) -> Result<T, Error> {
     let rows = parse_csv(input)?;
     if rows.is_empty() {
         if expected.is_empty() {
-            let mut d = CsvDecoder {
-                cells: &[],
-                pos: 0,
-            };
+            let mut d = CsvDecoder { cells: &[], pos: 0 };
             return T::decode(&mut d);
         }
         return Err(Error::Eof);
     }
-    if rows[0].iter().map(String::as_str).ne(expected.iter().copied()) {
+    if rows[0]
+        .iter()
+        .map(String::as_str)
+        .ne(expected.iter().copied())
+    {
         return Err(Error::InvalidValue);
     }
     let data: &[String] = rows.get(1).map(Vec::as_slice).unwrap_or(&[]);

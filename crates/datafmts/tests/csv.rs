@@ -40,7 +40,10 @@ fn string_quoting_option_roundtrip() {
         nick: None,
     };
     let bytes = csv::write(&u).unwrap();
-    assert_eq!(bytes, b"name,age,admin,nick\n\"Doe, \"\"JD\"\"\",30,true,\n");
+    assert_eq!(
+        bytes,
+        b"name,age,admin,nick\n\"Doe, \"\"JD\"\"\",30,true,\n"
+    );
     assert_eq!(csv::read::<User>(&bytes).unwrap(), u);
 
     let v = User {
