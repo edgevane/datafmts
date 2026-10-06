@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/datafmts", "crates/datafmts_derive"]
+resolver = "2"
